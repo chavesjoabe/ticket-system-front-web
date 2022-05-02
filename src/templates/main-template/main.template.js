@@ -17,14 +17,14 @@ function MainTemplate() {
                     <TicketCard />
                 </Grid>
                 <Grid item xs={3}>
-                    <Card variant='outlined'>
+                    <Card variant='outlined' sx={{ marginTop: '80px' }}>
                         <CardContent>
                             <Typography variant='h6' sx={{ fontWeight: 'bold' }}>
                                 Recent Activity
                             </Typography>
                             <Box display='flex' flexDirection='row'>
                                 <CheckCircle />
-                                <Typography > Someone complete task</Typography>
+                                <Typography sx={{ marginLeft: '5px' }} > Someone complete task</Typography>
                             </Box>
                         </CardContent>
                     </Card>

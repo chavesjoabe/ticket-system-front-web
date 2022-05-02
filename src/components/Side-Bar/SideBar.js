@@ -1,4 +1,4 @@
-import { ConfirmationNumber, GridView } from '@mui/icons-material';
+import { ConfirmationNumber, GridView, Keyboard } from '@mui/icons-material';
 import {
     List,
     ListItem,
@@ -13,7 +13,10 @@ import * as React from 'react';
 const SideBar = () => {
     return (
         <Box width="100%" height="100vh" borderRight={1} borderColor="#c4c4c4">
-            <Typography paddingBottom="20px"> HelpDesk </Typography>
+            <Box width='100%' display='flex' flexDirection='row' alignContent='center'>
+                <Keyboard sx={{ marginTop: '5px' }} color='primary' />
+                <Typography variant='h6' marginLeft='10px' paddingBottom="20px" sx={{ fontWeight: 'bold' }}> HelpDesk </Typography>
+            </Box>
 
             <List>
                 <ListItem disablePadding>
