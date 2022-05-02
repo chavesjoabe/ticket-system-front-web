@@ -1,6 +1,6 @@
-import { Card, CardContent, Chip, Typography } from '@mui/material';
 import * as React from 'react';
-
+import { Card, CardContent, Chip, Typography, Box, Badge } from '@mui/material';
+import { ChatBubbleOutline } from '@mui/icons-material';
 
 const TicketCard = () => {
     return (
@@ -12,8 +12,13 @@ const TicketCard = () => {
                 <Typography sx={{ marginTop: '15px', color: '#666666' }}>
                     Simple card description Simple card description Simple card description
                             </Typography >
-                <Chip label='Urgent' color='error' sx={{ marginTop: '15px', marginRight: '10px' }} />
-                <Chip label='#HL67890' sx={{ marginTop: '15px', marginRight: '10px' }} />
+                <Box display='flex' flexDirection='row' alignItems='center' marginTop='15px'>
+                    <Chip label='Urgent' color='error' sx={{ marginRight: '10px' }} />
+                    <Chip label='#HL67890' sx={{ marginRight: '10px' }} />
+                    <Badge badgeContent={2} color='error'>
+                        <ChatBubbleOutline />
+                    </Badge>
+                </Box>
             </CardContent>
         </Card>
     )
