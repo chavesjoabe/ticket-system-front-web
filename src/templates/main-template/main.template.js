@@ -15,6 +15,9 @@ function MainTemplate() {
                 <Grid item xs={7}>
                     <TopBar />
                     <TicketCard />
+                    <TicketCard />
+                    <TicketCard />
+                    <TicketCard />
                 </Grid>
                 <Grid item xs={3}>
                     <Card variant='outlined' sx={{ marginTop: '80px' }}>
