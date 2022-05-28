@@ -2,11 +2,12 @@ import { Button, Divider, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { URL_CONSTANTS } from '../../constants/url.constants';
 
 const TopBar = () => {
     const navigate = useNavigate();
     const handleOnClick = () => {
-        navigate('/TicketRegistration');
+        navigate(URL_CONSTANTS.TICKET_REGISTRATION);
     };
     return (
         <>

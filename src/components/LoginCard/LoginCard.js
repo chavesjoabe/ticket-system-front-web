@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import loginService from '../../services/login.service';
 import useAuth from '../../hooks/useAuth';
+import { URL_CONSTANTS } from '../../constants/url.constants';
 function LoginCard() {
     const navigate = useNavigate();
     const [user, setUser] = useState({});
@@ -25,7 +26,7 @@ function LoginCard() {
             localStorage.setItem('user', loggedUser);
             authContext.setUser(loggedUser);
             authContext.setToken(loggedUser.auth_token);
-            navigate('/home');
+            navigate(URL_CONSTANTS.HOME);
             return;
         }
 
