@@ -1,8 +1,8 @@
 import { Box, Grid, Typography } from "@mui/material";
-import * as React from "react";
-import LoginCard from "../../components/LoginCard/LoginCard";
+import React from "react";
+import UserRegistrationCard from "../../components/UserRegistrationCard/UserRegistrationCard";
 
-function LoginTemplate() {
+function UserRegistration() {
   return (
     <Box width="100%" margin="0px" height="100vh" boxSizing="border-box">
       <Grid container spacing={1} height="100%">
@@ -28,7 +28,7 @@ function LoginTemplate() {
             alignItems="center"
             justifyContent="center"
           >
-            <LoginCard />
+            <UserRegistrationCard />
           </Box>
         </Grid>
       </Grid>
@@ -36,4 +36,4 @@ function LoginTemplate() {
   );
 }
 
-export default LoginTemplate;
+export default UserRegistration;
