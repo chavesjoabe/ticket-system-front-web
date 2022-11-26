@@ -5,7 +5,7 @@ import LoginCard from '../../components/LoginCard/LoginCard';
 function LoginTemplate() {
     return (
         <Box width="100%" margin="0px" height="100vh" boxSizing="border-box">
-            <Grid container spacing={1} height="100%">
+            <Grid container height="100%">
                 <Grid item xs={6}>
                     <Box
                         backgroundColor="#2F69CC"

@@ -62,7 +62,7 @@ function TicketRegistration() {
             deviceId,
             userId: data.user._id,
             attendantId: '6262310a660fbba47e86a277',
-            status: 'PENDING',
+            status: 'WAITING',
         };
 
         const createdTicket = await TicketService.createTicket(
