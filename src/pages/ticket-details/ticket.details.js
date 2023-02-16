@@ -1,15 +1,16 @@
 import { CheckCircle } from "@mui/icons-material";
 import {
+  Alert,
   Box,
   Button,
   Card,
   CardContent,
   Grid,
+  Snackbar,
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
 import TicketService from "../../services/ticket.service";
 import { TicketDetailsCard } from "./components/ticket.details.card";
 import { UserDetailsCard } from "./components/user.details.card";
@@ -18,6 +19,8 @@ import { URL_CONSTANTS } from "../../constants/url.constants";
 import UserService from "../../services/user.service";
 import { TicketActionsCard } from "./components/ticket.actions";
 import { HasPermission } from "../../components/HasPermission/HasPermission";
+import { TicketAssignmentCard } from "./components/ticket.assigment.card";
+import ticketService from "../../services/ticket.service";
 
 const MainTemplate = () => {
   const { ticketId } = useParams();
@@ -25,17 +28,26 @@ const MainTemplate = () => {
   const [user, setUser] = useState({});
   const [loggedUser, setLoggedUser] = useState({});
   const [reloadCount, setReloadCount] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [token, setToken] = useState("");
+  const [severity, setSeverity] = useState("success");
+  const [message, setMessage] = useState("");
+  const [attendants, setAttendants] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
       const storedUser = localStorage.getItem("user");
       const loggedUserData = JSON.parse(storedUser);
+      setToken(loggedUserData.access_token);
       const ticket = await TicketService.findOneTicket(
         ticketId,
         loggedUserData.access_token
       );
       const requesterInfos = await UserService.findOneUser(ticket.userId);
+      const fetchAttendants = await UserService.findAllAttendants();
+
+      setAttendants(fetchAttendants);
 
       setUser(requesterInfos);
       setTicket(ticket);
@@ -47,6 +59,26 @@ const MainTemplate = () => {
     return navigate(URL_CONSTANTS.HOME);
   };
 
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
+  const handleOnSubmit = async () => {
+    try {
+      await ticketService.updateTicket(ticketId, ticket, token);
+      setOpen(true);
+      setMessage("Ticket update successfully");
+      return navigate(URL_CONSTANTS.HOME);
+    } catch (error) {
+      setOpen(true);
+      setSeverity("error");
+      setMessage(error.message);
+    }
+  };
+
   const reloadPage = () => {
     setReloadCount(reloadCount + 1);
   };
@@ -55,17 +87,7 @@ const MainTemplate = () => {
     <>
       <Grid container spacing={2}>
         <Grid item xs={2}>
-          <Box>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum
-            </Typography>
-          </Box>
+          <Box></Box>
         </Grid>
         <Grid item xs={7}>
           <Grid container spacing={2}>
@@ -115,8 +137,28 @@ const MainTemplate = () => {
             </Grid>
             <Grid item xs={12}>
               <HasPermission user={loggedUser}>
-                <TicketActionsCard ticketId={ticket._id} />
+                <TicketActionsCard ticket={ticket} setTicket={setTicket} />
               </HasPermission>
+            </Grid>
+            <Grid item xs={12}>
+              <HasPermission user={loggedUser} onlyAdmin={true}>
+                <TicketAssignmentCard
+                  attendants={attendants}
+                  ticket={ticket}
+                  setTicket={setTicket}
+                />
+              </HasPermission>
+            </Grid>
+            <Grid item xs={12}>
+              <Box flexDirection="row-reverse">
+                <Button
+                  variant="contained"
+                  size="large"
+                  onClick={handleOnSubmit}
+                >
+                  Save
+                </Button>
+              </Box>
             </Grid>
           </Grid>
           <Box></Box>
@@ -137,6 +179,11 @@ const MainTemplate = () => {
           </Card>
         </Grid>
       </Grid>
+      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity={severity} sx={{ width: "100%" }}>
+          {message}
+        </Alert>
+      </Snackbar>
     </>
   );
 };

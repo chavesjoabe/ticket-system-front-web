@@ -57,7 +57,6 @@ export const TicketDetailsCard = ({
   const [commentMessage, setCommentMessage] = React.useState("");
   const [comment, setComment] = React.useState({});
   const [severity, setSeverity] = React.useState("success");
-  const [reloadCount, setReloadCount] = React.useState(0);
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState("");
   const { user: data } = useAuth();
@@ -96,7 +95,7 @@ export const TicketDetailsCard = ({
       subject: subject,
     });
     try {
-      const updated = await ticketService.insertComment(ticketId, comment, data.access_token);
+      await ticketService.insertComment(ticketId, comment, data.access_token);
 
       setOpen(true);
       setMessage("Comment inserted with success");
@@ -193,7 +192,7 @@ export const TicketDetailsCard = ({
             <Grid item xs={4}>
               <TextField
                 id="filled-basic"
-                label="situarion"
+                label="situation"
                 value={situation}
                 variant="filled"
                 sx={{ width: "100%" }}
@@ -203,7 +202,7 @@ export const TicketDetailsCard = ({
             <Grid item xs={12}>
               <TextField
                 id="filled-basic"
-                label="desription"
+                label="description"
                 value={description}
                 variant="filled"
                 multiline

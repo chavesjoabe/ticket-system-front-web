@@ -53,6 +53,18 @@ class TicketService {
     return data;
   }
 
+  async updateTicket(ticketId, ticket, token) {
+    const { data } = await axios.put(
+      `${process.env.REACT_APP_TICKET_API_URL}/${ticketId}`,
+      ticket,
+      {
+        headers: this.headers(token),
+      }
+    );
+
+    return data;
+  }
+
   async resolveTicket(ticketId, requestBody, token) {
     const { data } = await axios.put(
       `${process.env.REACT_APP_TICKET_API_URL}/resolve-ticket/${ticketId}`,

@@ -11,9 +11,23 @@ class UserService {
   };
 
   async findOneUser(id) {
-    const { data } = await axios.get(`${process.env.REACT_APP_USER_API_URL}/id/${id}`, {
-      headers: this.headers(),
-    });
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_USER_API_URL}/id/${id}`,
+      {
+        headers: this.headers(),
+      }
+    );
+    return data;
+  }
+
+  async findAllAttendants() {
+    const query = `type=ATTENDANT`;
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_USER_API_URL}?${query}`,
+      {
+        headers: this.headers(),
+      }
+    );
     return data;
   }
 }

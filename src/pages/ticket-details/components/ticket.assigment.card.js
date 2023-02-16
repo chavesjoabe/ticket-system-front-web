@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { styled } from "@mui/material/styles";
 import {
+  Box,
   Card,
   CardActions,
   CardContent,
   Collapse,
+  FormControl,
   Grid,
   IconButton,
+  InputLabel,
   MenuItem,
   Select,
   Typography,
@@ -24,20 +27,16 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export const TicketActionsCard = ({ ticket, setTicket }) => {
+export const TicketAssignmentCard = ({ attendants, ticket, setTicket }) => {
   const [expanded, setExpanded] = useState(true);
-  const [selectedStatus, setSelectedStatus] = useState("");
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-
-  const handleOnChangeStatusField = (event) => {
-    setSelectedStatus(event.target.value);
-    setTicket({ ...ticket, status: event.target.value});
-
-    console.log('TICKET ', ticket);
+  const handleOnChangeAttendant = (event) => {
+    console.log('ATTENDANT ', event.target.value);
+    setTicket({ ...ticket, attendantId: event.target.value});
   };
 
   return (
@@ -51,7 +50,7 @@ export const TicketActionsCard = ({ ticket, setTicket }) => {
               color="text.secondary"
               marginTop="15px"
             >
-              Ticket Actions
+              Assign to:
             </Typography>
           </Grid>
           <Grid item xs={4}>
@@ -70,18 +69,33 @@ export const TicketActionsCard = ({ ticket, setTicket }) => {
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <Select
-                id="demo-simple-select"
-                label="Status"
-                placeholder="Status"
-                sx={{ width: "100%", marginBottom: "10px" }}
-                variant="filled"
-                required
-                onChange={handleOnChangeStatusField}
-              >
-                <MenuItem value={"CANCELED"}>Canceled</MenuItem>
-                <MenuItem value={"FINISHED"}>Finished</MenuItem>
-              </Select>
+              <form>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Select</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    label="Assign to"
+                    sx={{ width: "100%", marginBottom: "10px" }}
+                    variant="filled"
+                    defaultValue=""
+                    required
+                    onChange={handleOnChangeAttendant}
+                  >
+                    {attendants.map((attendant) => (
+                      <MenuItem value={attendant.document}>
+                        {attendant.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  <Box
+                    marginTop="5px"
+                    display="flex"
+                    justifyContent="flex-end"
+                    gap="10px"
+                  ></Box>
+                </FormControl>
+              </form>
             </Grid>
           </Grid>
         </Collapse>

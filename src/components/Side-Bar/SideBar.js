@@ -20,25 +20,6 @@ const SideBar = () => {
       paddingTop={2}
       sx={{ backgroundColor: "#fff" }}
     >
-      <Box
-        width="100%"
-        display="flex"
-        flexDirection="row"
-        alignContent="center"
-        paddingLeft={5}
-      >
-        <Keyboard sx={{ marginTop: "5px" }} color="primary" />
-        <Typography
-          variant="h6"
-          marginLeft="10px"
-          paddingBottom="20px"
-          fontSize={23}
-          sx={{ fontWeight: "bold" }}
-        >
-          {"HelpDesk"}
-        </Typography>
-      </Box>
-
       <List>
         <ListItem disablePadding>
           <ListItemButton>
