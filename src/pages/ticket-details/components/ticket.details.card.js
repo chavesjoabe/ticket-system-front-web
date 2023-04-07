@@ -100,6 +100,7 @@ export const TicketDetailsCard = ({
       setOpen(true);
       setMessage("Comment inserted with success");
       setCommentMessage("");
+      setSeverity('success');
       setSubject("");
       reloadPage();
     } catch (error) {

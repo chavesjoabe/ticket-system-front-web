@@ -1,25 +1,22 @@
 import { Keyboard } from "@mui/icons-material";
 import { Box, Grid, Typography } from "@mui/material";
 
-export const Header = ({ name, role }) => {
+export const Header = ({ name, role, email }) => {
   return (
     <Box
-      elevation={3}
       backgroundColor="#2F69CC"
       width="100%"
       height="40px"
-      borderBottom={3}
       borderColor="#fff"
+      padding={1}
     >
       <Grid container>
-        <Grid item xs={3} display="flex" flexDirection="row">
-          <Keyboard
-            sx={{ marginTop: "6px", color: "#fff", marginLeft: "15px" }}
-          />
+        <Grid item xs={2} display="flex" flexDirection="row">
+          <Keyboard sx={{ color: "#fff", marginLeft: "15px", marginTop: '4px' }} />
           <Typography
-            sx={{ marginTop: "3px", marginLeft: "10px" }}
+            sx={{ marginLeft: "10px" }}
             color="#fff"
-            variant='h6'
+            variant="h6"
             fontWeight={600}
           >
             Help
@@ -27,19 +24,51 @@ export const Header = ({ name, role }) => {
           <Typography
             sx={{
               WebkitTextStroke: "0.7px #fff",
-              marginTop: "3px",
               color: "#2F69CC",
             }}
-            variant='h6'
+            variant="h6"
             fontWeight={600}
           >
             Desk
           </Typography>
         </Grid>
-        <Grid item xs={4}>
-          <Typography variant="h6" color="#fff">
-            {name} - {role}
-          </Typography>
+        <Grid item xs={7}>
+          <Box
+            display="flex"
+            flexDirection="column"
+            height="100%"
+            width="100%"
+            borderRadius="15px"
+            padding='1px'
+            sx={{ backgroundColor: "#fff" }}
+          >
+            <Grid container>
+              <Grid textAlign='center' xs={4} borderRight={1} borderColor="#ccc">
+                <Typography fontSize="10px" fontWeight={600} >
+                  NAME
+                </Typography>
+                <Typography fontSize="10px" color="text.secondary">
+                  {name}
+                </Typography>
+              </Grid>
+              <Grid textAlign='center' xs={4} borderRight={1} borderColor="#ccc">
+                <Typography fontSize="10px" fontWeight={600} >
+                 TYPE 
+                </Typography>
+                <Typography fontSize="10px" color="text.secondary">
+                  {role}
+                </Typography>
+              </Grid>
+              <Grid textAlign='center' xs={4} borderColor="#ccc">
+                <Typography fontSize="10px" fontWeight={600} >
+                 EMAIL 
+                </Typography>
+                <Typography fontSize="10px" color="text.secondary">
+                  {email}
+                </Typography>
+              </Grid>
+            </Grid>
+          </Box>
         </Grid>
       </Grid>
     </Box>

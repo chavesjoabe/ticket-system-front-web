@@ -25,7 +25,11 @@ function MainTemplate() {
 
   return (
     <>
-      <Header name={loggedUser.name} role={loggedUser.type} />
+      <Header
+        name={loggedUser.name}
+        role={loggedUser.type}
+        email={loggedUser.email}
+      />
       <Grid container spacing={2}>
         <Grid item xs={2}>
           <SideBar />
